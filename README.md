@@ -38,7 +38,7 @@ This portfolio pet-project demonstrates advanced creative coding. All animations
 ### 💻 Local Setup
 1. Clone the repo:
    ```bash
-   git clone https://github.com
+   git clone https://github.com/WebBit-Ro/STELLAR-EVOLUTION-Gargantua-V-1
    ```
 2. Open `index.html` via a local server (e.g., Live Server in VS Code) for correct CDN script resolution.
 
@@ -73,7 +73,7 @@ This portfolio pet-project demonstrates advanced creative coding. All animations
 ### 💻 Локальний запуск
 1. Склонуйте репозиторій:
    ```bash
-   git clone https://github.com
+   git clone https://github.com/WebBit-Ro/STELLAR-EVOLUTION-Gargantua-V-1
    ```
 2. Відкрийте `index.html` через локальний сервер (наприклад, Live Server у VS Code) для коректної роботи CDN-скриптів.
 
@@ -108,7 +108,7 @@ This portfolio pet-project demonstrates advanced creative coding. All animations
 ### 💻 Локальный запуск
 1. Склонируйте репозиторий:
    ```bash
-   git clone https://github.com
+   git clone https://github.com/WebBit-Ro/STELLAR-EVOLUTION-Gargantua-V-1
    ```
 2. Откройте файл `index.html` через локальный сервер (например, Live Server в VS Code) для корректной работы всех CDN-скриптов.
 
