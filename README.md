@@ -1,6 +1,6 @@
 # 🌌 STELLAR EVOLUTION — Gargantua V-1
 
-<img src="./preview.gif" width="100%">
+<video src="preview.mp4" autoplay loop muted playsinline width="100%"></video>
 
 ---
 
