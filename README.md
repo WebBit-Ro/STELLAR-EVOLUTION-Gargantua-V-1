@@ -1,6 +1,12 @@
 # 🌌 STELLAR EVOLUTION — Gargantua V-1
 
-Глянуть работу сайта вы сможете [тут](https://webbit-ro.github.io/STELLAR-EVOLUTION-Gargantua-V-1/)
+
+## 🌐 Live Demo / Перегляд сайту / Просмотр сайта
+
+* 🇬🇧 **English:** You can check the live site [here](https://webbit-ro.github.io/STELLAR-EVOLUTION-Gargantua-V-1/)
+* 🇺🇦 **Українська:** Подивитися роботу сайту можна [тут](https://webbit-ro.github.io/STELLAR-EVOLUTION-Gargantua-V-1/)
+* 🇷🇺 **Русский:** Посмотреть работу сайта вы можете [тут](https://webbit-ro.github.io/STELLAR-EVOLUTION-Gargantua-V-1/)
+
 ---
 
 ## 🌐 Choose Language / Выберите язык / Оберіть мову
