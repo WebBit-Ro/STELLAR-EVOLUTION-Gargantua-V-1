@@ -1,6 +1,6 @@
 # 🌌 STELLAR EVOLUTION — Gargantua V-1
 
-![Stellar Evolution Preview](STELLAR%20EVOLUTION%20%E2%80%94%20Gargantua%20V-1.gif)
+<img src="./STELLAR%20EVOLUTION%20%E2%80%94%20Gargantua%20V-1.gif" width="100%" alt="Preview">
 
 ---
 
