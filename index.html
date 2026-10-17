@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#010208">
+  <meta name="description" content="Интерактивная визуализация эволюции массивной звезды от голубого сверхгиганта до чёрной дыры.">
+  <title>STELLAR EVOLUTION — Gargantua</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+
+    <canvas id="webgl" aria-hidden="true"></canvas>
+
+    <header class="hud hud--top">
+      <div class="brand">STELLAR EVOLUTION <span>/</span> 01</div>
+      <div class="scroll-hint"><span>SCROLL TO DESCEND</span><b></b></div>
+    </header>
+
+    <aside class="progress" aria-label="Прогресс визуализации">
+      <div class="progress__track"><div class="progress__fill" id="progressFill"></div></div>
+      <div class="progress__value" id="progressValue">00%</div>
+    </aside>
+
+    <div class="hud hud--bottom">
+      <div class="readout">
+        <span id="phaseLabel">PHASE 01</span>
+        <strong id="phaseName">BLUE SUPERGIANT</strong>
+      </div>
+      <div class="note">Three.js · GLSL · GSAP</div>
+    </div>
+
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <main id="story" class="story">
+      <section class="story__pin" id="storyPin">
+        <div class="copy" aria-live="polite">
+          <article class="copy__card" data-stage="0">
+            <div class="kicker">ФАЗА 01 / ГОЛУБОЙ СВЕРХГИГАНТ</div>
+            <h1>Топливо<br>заканчивается.</h1>
+            <p>Массивная звезда исчерпывает запасы ядерного топлива. Давление изнутри больше не может долго противостоять собственной гравитации.</p>
+            <div class="fact">Гидростатическое равновесие · горение оболочек · железное ядро</div>
+          </article>
+
+          <article class="copy__card" data-stage="1">
+            <div class="kicker">ФАЗА 02 / КОЛЛАПС + СВЕРХНОВАЯ</div>
+            <h2>Ядро<br>схлопывается.</h2>
+            <p>За доли секунды сердцевина звезды катастрофически сжимается. Ударная волна проходит через оболочки и выбрасывает вещество в окружающее пространство.</p>
+            <div class="fact">Коллапс ядра · ударная волна · сверхновая</div>
+          </article>
+
+          <article class="copy__card" data-stage="2">
+            <div class="kicker">ФАЗА 03 / АККРЕЦИОННЫЙ ДИСК</div>
+            <h2>Вещество<br>закручивается.</h2>
+            <p>Часть материала остаётся гравитационно связанной. Он теряет энергию, переходит на орбиты и формирует горячий вращающийся диск.</p>
+            <div class="fact">Аккреция · дифференциальное вращение · плазма</div>
+          </article>
+
+          <article class="copy__card" data-stage="3">
+            <div class="kicker">ФАЗА 04 / ГОРИЗОНТ СОБЫТИЙ</div>
+            <h2>Свет<br>не возвращается.</h2>
+            <p>Если остаток ядра достаточно массивен, возникает чёрная дыра. Внутри горизонта событий путь наружу для света больше не существует.</p>
+            <div class="fact">Горизонт событий · фотонное кольцо · гравитационная линза</div>
+          </article>
+
+          <article class="copy__card" data-stage="4">
+            <div class="kicker">ФИНАЛ / РЕЛЯТИВИСТСКИЕ ДЖЕТЫ</div>
+            <h2>Рождение<br>монстра.</h2>
+            <p>Вдоль оси вращения аккреционной системы могут формироваться узкие релятивистские струи плазмы. Мы видим не сингулярность, а её воздействие на свет и вещество.</p>
+            <div class="fact">Магнитное поле · релятивистская плазма · струи</div>
+          </article>
+        </div>
+
+        <div class="center-title" aria-hidden="true">
+          <span>FROM SUPERNOVA</span>
+          <span>TO GARGANTUA</span>
+        </div>
+      </section>
+    </main>
+
+    <div id="errorPanel" class="error-panel" hidden>
+      <strong>WebGL не запустился</strong>
+      <span>Проверьте, что браузер поддерживает WebGL и что интернет-доступ к CDN не заблокирован.</span>
+    </div>
+  </div>
+
+  <!--
+    Libraries are loaded with fallbacks.
+    If one CDN is blocked in the user's browser/network, the next one is tried.
+    Everything else in the scene remains procedural.
+  -->
+  <script>
+    (function () {
+      const resources = [
+        {
+          name: "Three.js",
+          test: () => !!window.THREE,
+          urls: [
+            "https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js",
+            "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js",
+            "https://unpkg.com/three@0.160.0/build/three.min.js"
+          ]
+        },
+        {
+          name: "GSAP",
+          test: () => !!window.gsap,
+          urls: [
+            "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+            "https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js",
+            "https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"
+          ]
+        },
+        {
+          name: "ScrollTrigger",
+          test: () => !!window.ScrollTrigger,
+          urls: [
+            "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js",
+            "https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js",
+            "https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"
+          ]
+        }
+      ];
+
+      window.__libraryLoader = (async function loadAll() {
+        for (const resource of resources) {
+          if (resource.test()) continue;
+
+          let loaded = false;
+          for (const url of resource.urls) {
+            try {
+              await new Promise((resolve, reject) => {
+                const tag = document.createElement("script");
+                tag.src = url;
+                tag.async = false;
+                tag.crossOrigin = "anonymous";
+                tag.onload = resolve;
+                tag.onerror = () => reject(new Error(url));
+                document.head.appendChild(tag);
+              });
+              if (resource.test()) {
+                loaded = true;
+                break;
+              }
+            } catch (err) {
+              console.warn("CDN failed:", url);
+            }
+          }
+
+          if (!loaded) {
+            throw new Error(resource.name + " could not be loaded from any CDN.");
+          }
+        }
+      })();
+    })();
+  </script>
+
+  <script>
+    window.__libraryLoader
+      .then(() => {
+        const app = document.createElement("script");
+        app.src = "./script.js";
+        app.onload = () => console.info("Stellar scene loaded.");
+        app.onerror = () => {
+          const p = document.getElementById("errorPanel");
+          if (p) {
+            p.hidden = false;
+            const span = p.querySelector("span");
+            if (span) span.textContent = "Не удалось загрузить script.js. Убедитесь, что все три файла находятся в одной папке.";
+          }
+        };
+        document.body.appendChild(app);
+      })
+      .catch((err) => {
+        console.error(err);
+        const p = document.getElementById("errorPanel");
+        if (p) {
+          p.hidden = false;
+          const span = p.querySelector("span");
+          if (span) span.textContent = "Библиотеки Three.js / GSAP не загрузились. Ваша сеть или браузер блокирует CDN. Попробуйте другой интернет/браузер или разрешите загрузку внешних скриптов.";
+        }
+      });
+  </script>
+</body>
+</html>
