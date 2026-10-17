@@ -1,9 +1,5 @@
 # 🌌 STELLAR EVOLUTION — Gargantua V-1
 
-<video src="preview.mp4" autoplay loop muted playsinline width="100%"></video>
-
----
-
 ## 🌐 Choose Language / Выберите язык / Оберіть мову
 * [🇬🇧 English](#-english)
 * [🇺🇦 Українська](#-українська)
